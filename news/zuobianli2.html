@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>laoman</title>
+<script type="text/javascript">
+//鼠标点击出现爱心特效
+(function (window, document, undefined) {
+    var hearts = [];
+    window.requestAnimationFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                setTimeout(callback, 1000 / 60);
+            }
+    })();
+    init();
+ 
+    function init() {
+        css(
+            ".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}"
+        );
+        attachEvent();
+        gameloop();
+    }
+ 
+    function gameloop() {
+        for (var i = 0; i < hearts.length; i++) {
+            if (hearts[i].alpha <= 0) {
+                document.body.removeChild(hearts[i].el);
+                hearts.splice(i, 1);
+                continue;
+            }
+            hearts[i].y--;
+            hearts[i].scale += 0.004;
+            hearts[i].alpha -= 0.013;
+            hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i]
+                .alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale +
+                ") rotate(45deg);background:" + hearts[i].color;
+        }
+        requestAnimationFrame(gameloop);
+    }
+ 
+    function attachEvent() {
+        var old = typeof window.οnclick === "function" && window.onclick;
+        window.onclick = function (event) {
+            old && old();
+            createHeart(event);
+        }
+    }
+ 
+    function createHeart(event) {
+        var d = document.createElement("div");
+        d.className = "heart";
+        hearts.push({
+            el: d,
+            x: event.clientX - 5,
+            y: event.clientY - 5,
+            scale: 1,
+            alpha: 1,
+            color: randomColor()
+        });
+        document.body.appendChild(d);
+    }
+ 
+    function css(css) {
+        var style = document.createElement("style");
+        style.type = "text/css";
+        try {
+            style.appendChild(document.createTextNode(css));
+        } catch (ex) {
+            style.styleSheet.cssText = css;
+        }
+        document.getElementsByTagName('head')[0].appendChild(style);
+    }
+ 
+    function randomColor() {
+        return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) +
+            ")";
+    }
+})(window, document);
+</script>
+
+<style type="text/css">
+a{text-decoration:none;}
+body {
+	background-color:rgba(0,0,255,0.5);
+    background-size:cover;
+	
+}
+.p1{
+	font-size:20px;
+	font-family:"华文彩云","Adobe 楷体 Std R";
+	}
+#header{
+	height:60px;
+	background-image:url(../manClude/bjtu1.jpg);
+	font-family:"Adobe 楷体 Std R", "Adobe 宋体 Std L";
+	font-size:2.6em;
+	padding-top:10px;
+	text-align:center;
+	margin-top:-0.12em;
+	letter-spacing:0.1em;
+	
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:100% 100%;
+    }
+.header1{
+	font-size:1.5em;
+
+	line-height:30px;
+	
+	}
+.zuobian{
+	width:260px;
+	border-style:solid;
+	background-color:#ffeedd;
+	border-bottom-width:10px;
+	border-radius:60px;
+	margin-top:30px;
+	margin-bottom:20px;
+	line-height:30px;
+	float:left;
+	width:20;
+    }
+.content{
+	float:left;
+	width:60%;
+	margin-left:12%;
+	margin-top:60px;
+    }
+.footer{
+	clear:both;
+	height:60px;
+	border:1px solid ;
+	margin:20px;
+	font-size:15px;
+	font-family:"隶书"
+    }
+#footer2{
+	text-align:center
+}
+
+#header{
+	color:red;
+	font-weight:bold;
+
+	animation:myfirst1 1s;
+	animation-iteration-count:20000;
+/*	-moz-animation: myfirst 5s;		Firefox
+*	-webkit-animation: myfirst 5s;  safari and chrome  
+*	-o-animation: myfirst 5s;				opera      此三行原文有但注释掉后显示正常
+*/
+}
+@keyframes myfirst1
+{
+	0%{ color:yellow;}
+	25%{ color:green;}
+	50%{ color:red;}
+	100%{ color:blue;}
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+<div id="container">
+
+<div id="header" align="center">大连德邦环球航空货运代理物流有限公司</div>
+<div class="header1">
+    <table width="99%" ><tr align="center"><td><a href="../index.html" target="_self">首页</a></td><td><a href="../manClude/2.html" target="_self">最新消息</a></td>
+<td><a href="../manClude/3.html" target="_self">服务产品</a></td><td><a href="../manClude/4.html" target="_self">联系我们</a></td></tr></table>
+</div>
+</div>
+<div class="zuobian">
+<ul>
+       <p class="p1">最新消息</p>
+     <hr>
+      <li><a href="zuobianli1.html" target="_self">公司举办2019年度</a></li>
+      <li><a href="zuobianli2.html" target="_self">公司业务比赛</a></li>
+      <li><a href="zuobianli3.html" target="_self">优秀员工</a></li>
+      <li><a href="zuobianli4.html" target="_self">中美贸易谈判新进展</a></li>
+   </ul>
+   <ul>
+   <p class="p1">行业动态</p>
+   <hr>
+      <li><a href="zuobianli11.html" target="_self">上半年货运量提升</a></li>
+      <li><a href="zuobianli12.html" target="_self">海关总署统计数据</a></li>
+      <li><a href="zuobianli13.html" target="_self">新春特辑</a></li>
+      <li>我想加入的链接2</li>
+      <li>我想加入的链3</li>
+      <li>我想加入的链4</li>
+      <li>我想加入的链5</li>
+      <li>我想加入的链6</li>
+      
+
+   </ul>
+   </div>
+   </div>   
+   
+</div>
+</div>
+   </div>
+  <div class="content">
+  <h2>最新消息</h2>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;开展全员岗位练兵，加快培养和选拔优秀人才，持续提升员工队伍整体素质，推动公司实现可持续发展。
+四建公司今年的业务竞赛分为企业级一类业务竞赛、企业级二类业务竞赛，同时公司各个外埠项目部因地制宜组织工进行基本功训练，开展小型多样的各类业务竞赛。按照要求，四建公司主要业务系统积极组队参加集团公司一类、二类业务竞赛，企业级一类竞赛按照《业务竞赛管理办法》规定编制竞赛方案、履行程序、组织实施。 </p>
+四建公司要求各级领导强化组织领导，将业务竞赛工作纳入议事日程，认真研究部署、细划责任、精心组织落实，确保各项业务竞赛收到预期效果。在业务竞赛活动中，要充分利用微信、网络平台、石化四建报、简报等宣传方式，加强业务竞赛活动的宣传报道，积极营造竞赛氛围，扩大业务竞赛影响力，进一步激发广大员工&ldquo;学技能、提素质&rdquo;的工作热情。通过业务竞赛活动选树典型，对在业务竞赛活动中表现突出的先进集体和个人，要挖掘典型事迹大力宣传，切实发挥先进典型的引领示范作用。
+  <hr>
+</div>
+</div> 
+
+<div class="footer" >
+<h2>&nbsp;&nbsp;友情链接:&nbsp;&nbsp;<a href="https://www.baidu.com/" target="new"><img src="../manClude/tubaidu.jpg" width="90" height="40"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.customs.gov.cn/" target="new"><img src="../manClude/tuhaiguan.jpg" width="90" height="40"></a>&nbsp;&nbsp;<a href="https://www.baidu.com/" target="new"><img src="../manClude/tubaidu.jpg" width="90" height="40"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.customs.gov.cn/" target="new"><img src="../manClude/tuhaiguan.jpg" width="90" height="40"></a>&nbsp;&nbsp;<a href="https://www.baidu.com/" target="new"><img src="../manClude/tubaidu.jpg" width="90" height="40"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.customs.gov.cn/" target="new"><img src="../manClude/tuhaiguan.jpg" width="90" height="40"></a>
+</div>
+<div id="footer2">
+<h6>版权所有：老 ajdfi 公司</h6>
+</div>
+</body>
+</html>
+
